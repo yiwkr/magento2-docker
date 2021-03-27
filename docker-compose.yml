@@ -1,0 +1,51 @@
+version: '3'
+services:
+  magento:
+    build: ./magento
+    ports:
+      - "80:80"
+    volumes:
+      - "./volumes/apache/data:/var/www/html"
+    env_file:
+      - ./.env
+    environment:
+      TZ: Asia/Tokyo
+    restart: always
+
+  mysql:
+    image: "mysql:8"
+    volumes:
+      - "./volumes/mysql/data:/var/lib/mysql"
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1
+      MYSQL_DATABASE: "${MAGENTO_SETUP_DB_NAME}"
+      MYSQL_USER: "${MAGENTO_SETUP_DB_USER}"
+      MYSQL_PASSWORD: "${MAGENTO_SETUP_DB_PASSWORD}"
+    cap_add:
+      - SYS_NICE
+    restart: always
+
+  elasticsearch:
+    image: "docker.elastic.co/elasticsearch/elasticsearch:7.9.3"
+    environment:
+      - "discovery.type=single-node"
+      - "bootstrap.memory_lock=true"
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - "./volumes/elasticsearch/data:/usr/share/elasticsearch/data"
+    ports:
+      - "9200:9200"
+    restart: always
+
+  rabbitmq:
+    image: "rabbitmq:3.8.14-alpine"
+    volumes:
+      - "./volumes/rabbitmq/data:/var/lib/rabbitmq"
+    environment:
+      RABBITMQ_DEFAULT_USER: "${MAGENTO_SETUP_AMQP_USER}"
+      RABBITMQ_DEFAULT_PASS: "${MAGENTO_SETUP_AMQP_PASSWORD}"
+    restart: always
