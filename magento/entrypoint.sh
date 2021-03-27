@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [[ $# -ne 0 ]]; then
-  docker-php-entrypoint "$@"
+  exec docker-php-entrypoint "$@"
 else
   set -x
   MAGENTO_SETUP_PROJECT_NAME="${MAGENTO_SETUP_PROJECT_NAME:-magento2}"
