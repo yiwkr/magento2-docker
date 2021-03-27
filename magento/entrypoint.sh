@@ -73,8 +73,9 @@ else
   if [[ -n "$MAGENTO_SETUP_SAMPLEDATA" ]]; then
     : ${MAGENTO_SETUP_MARKETPLACE_PUBLIC_KEY:?MAGENTO_SETUP_MARKETPLACE_PUBLIC_KEY is required}
     : ${MAGENTO_SETUP_MARKETPLACE_PRIVATE_KEY:?MAGENTO_SETUP_MARKETPLACE_PRIVATE_KEY is required}
-    composer config -g http-basic.repo.magento.com             \
-      $MAGENTO_SETUP_MARKETPLACE_PUBLIC_KEY                    \
+    AUTH_JSON_PATH=var/composer_home/auth.json
+    composer config -f "$AUTH_JSON_PATH" http-basic.repo.magento.com \
+      $MAGENTO_SETUP_MARKETPLACE_PUBLIC_KEY                          \
       $MAGENTO_SETUP_MARKETPLACE_PRIVATE_KEY
     bin/magento sampledata:deploy
     bin/magento setup:upgrade
