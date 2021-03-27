@@ -61,7 +61,7 @@ else
     composer require veriteworks/m2-japaneselocale
   fi
 
-  cd "$MAGENTO_SETUP_PROJECT_NAME"
+  cd "$PROJECT_DIR"
 
   if [[ -z "$MAGENTO_SETUP_DISABLE_AUTO_FIX_APACHE_CONFIG" ]]; then
     sed -i 's;ServerName .*;ServerName '"$SERVER_NAME"';'      \
