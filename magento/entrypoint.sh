@@ -26,27 +26,28 @@ else
 
     cd "$MAGENTO_SETUP_PROJECT_NAME"
 
-    bin/magento setup:install                                  \
-      --base-url="$MAGENTO_SETUP_BASE_URL"                     \
-      --db-host="$MAGENTO_SETUP_DB_HOST"                       \
-      --db-name="$MAGENTO_SETUP_DB_NAME"                       \
-      --db-user="$MAGENTO_SETUP_DB_USER"                       \
-      --db-password="$MAGENTO_SETUP_DB_PASSWORD"               \
-      --admin-firstname="$MAGENTO_SETUP_ADMIN_FIRSTNAME"       \
-      --admin-lastname="$MAGENTO_SETUP_ADMIN_LASTNAME"         \
-      --admin-email="$MAGENTO_SETUP_ADMIN_EMAIL"               \
-      --admin-user="$MAGENTO_SETUP_ADMIN_USER"                 \
-      --admin-password="$MAGENTO_SETUP_ADMIN_PASSWORD"         \
-      --language="$MAGENTO_SETUP_LANGUAGE"                     \
-      --currency="$MAGENTO_SETUP_CURRENCY"                     \
-      --timezone="$MAGENTO_SETUP_TIMEZONE"                     \
-      --use-rewrites="$MAGENTO_SETUP_USE_REWRITES"             \
-      --search-engine="$MAGENTO_SETUP_SEARCH_ENGINE"           \
-      --elasticsearch-host="$MAGENTO_SETUP_ELASTICSEARCH_HOST" \
-      --amqp-host="$MAGENTO_SETUP_AMQP_HOST"                   \
-      --amqp-port="$MAGENTO_SETUP_AMQP_PORT"                   \
-      --amqp-user="$MAGENTO_SETUP_AMQP_USER"                   \
-      --amqp-password="$MAGENTO_SETUP_AMQP_PASSWORD"
+    bin/magento setup:install                                                                       \
+      "${MAGENTO_SETUP_BASE_URL:+--base-url=$MAGENTO_SETUP_BASE_URL}"                               \
+      "${MAGENTO_SETUP_BACKEND_FRONTNAME:+--backend-frontname=$MAGENTO_SETUP_BACKEND_FRONTNAME}"    \
+      "${MAGENTO_SETUP_DB_HOST:+--db-host=$MAGENTO_SETUP_DB_HOST}"                                  \
+      "${MAGENTO_SETUP_DB_NAME:+--db-name=$MAGENTO_SETUP_DB_NAME}"                                  \
+      "${MAGENTO_SETUP_DB_USER:+--db-user=$MAGENTO_SETUP_DB_USER}"                                  \
+      "${MAGENTO_SETUP_DB_PASSWORD:+--db-password=$MAGENTO_SETUP_DB_PASSWORD}"                      \
+      "${MAGENTO_SETUP_ADMIN_FIRSTNAME:+--admin-firstname=$MAGENTO_SETUP_ADMIN_FIRSTNAME}"          \
+      "${MAGENTO_SETUP_ADMIN_LASTNAME:+--admin-lastname=$MAGENTO_SETUP_ADMIN_LASTNAME}"             \
+      "${MAGENTO_SETUP_ADMIN_EMAIL:+--admin-email=$MAGENTO_SETUP_ADMIN_EMAIL}"                      \
+      "${MAGENTO_SETUP_ADMIN_USER:+--admin-user=$MAGENTO_SETUP_ADMIN_USER}"                         \
+      "${MAGENTO_SETUP_ADMIN_PASSWORD:+--admin-password=$MAGENTO_SETUP_ADMIN_PASSWORD}"             \
+      "${MAGENTO_SETUP_LANGUAGE:+--language=$MAGENTO_SETUP_LANGUAGE}"                               \
+      "${MAGENTO_SETUP_CURRENCY:+--currency=$MAGENTO_SETUP_CURRENCY}"                               \
+      "${MAGENTO_SETUP_TIMEZONE:+--timezone=$MAGENTO_SETUP_TIMEZONE}"                               \
+      "${MAGENTO_SETUP_USE_REWRITES:+--use-rewrites=$MAGENTO_SETUP_USE_REWRITES}"                   \
+      "${MAGENTO_SETUP_SEARCH_ENGINE:+--search-engine=$MAGENTO_SETUP_SEARCH_ENGINE}"                \
+      "${MAGENTO_SETUP_ELASTICSEARCH_HOST:+--elasticsearch-host=$MAGENTO_SETUP_ELASTICSEARCH_HOST}" \
+      "${MAGENTO_SETUP_AMQP_HOST:+--amqp-host=$MAGENTO_SETUP_AMQP_HOST}"                            \
+      "${MAGENTO_SETUP_AMQP_PORT:+--amqp-port=$MAGENTO_SETUP_AMQP_PORT}"                            \
+      "${MAGENTO_SETUP_AMQP_USER:+--amqp-user=$MAGENTO_SETUP_AMQP_USER}"                            \
+      "${MAGENTO_SETUP_AMQP_PASSWORD:+--amqp-password=$MAGENTO_SETUP_AMQP_PASSWORD}"
 
     # fix files and directories permission and ownership
     find var generated vendor pub/static pub/media app/etc -type f -exec chmod g+w {} +
