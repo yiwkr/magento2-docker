@@ -2,6 +2,10 @@ version: '3'
 services:
   magento:
     build: ./magento
+    depends_on:
+      - mysql
+      - elasticsearch
+      - rabbitmq
     ports:
       - "80:80"
     volumes:
